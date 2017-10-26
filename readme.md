@@ -1,6 +1,6 @@
 # Guidelines
 You will have to submit this task with git (you can use Github or Bitbucket). 
-After you are finishing make sure the code is pushed and send an email to idan.levin@jivygroup.com with a link.
+After you are finishing make sure the code is pushed and send an email/skype with a link.
 
 The code should be runnable on Chrome (don't warry about the rest), NPM start or something simple for run it.
 
