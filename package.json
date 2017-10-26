@@ -1,0 +1,30 @@
+{
+  "name": "mock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mock.js",
+  "scripts": {
+    "test": "jest --runInBand --no-cache"
+  },
+  "author": "",
+  "license": "ISC",
+  "jest": {
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "./"
+    ]
+  },
+  "dependencies": {
+    "rxjs": "^5.5.2"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-preset-stage-1": "^6.24.1",
+    "jest": "^21.2.1"
+  }
+}
