@@ -44,6 +44,7 @@ You should see console log with the object on the steam
 * Show a table with all of the assets
 * Allow to sort for each one of the model fields
 * Allow to filter for each one of the model fields
+**Optional**
 * Add to favorites button
 * favorites should be persist  to localstorage
 * favorites should be pin to the top of the table
