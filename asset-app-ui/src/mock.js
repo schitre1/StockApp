@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import Rx from 'rxjs/Rx';
+import Rx from 'rxjs';
 
 const createAsset = (assetId, assetType) => {
   return {

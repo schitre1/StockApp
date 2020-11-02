@@ -4,7 +4,7 @@ import AssetTable from './AssetTable';
 const App = () => {
   return (
     <div className="container-fluid">
-      <h2 className="display-4">Stock App</h2>
+      <h2 className="display-4">Asset App</h2>
       <AssetTable />
     </div>
   );
