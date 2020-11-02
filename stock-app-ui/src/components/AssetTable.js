@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { timer } from 'rxjs';
 import Asset from './Asset';
 import { mock } from '../mock';
 
@@ -14,9 +13,11 @@ const AssetTable = () => {
                     return eachAsset.assetName === x.assetName;
                 });
                 if (currentAssetIfExists >= 0) {
+                    console.log('exists');
                     setAssetData(assetData.map((item, index) => item.assetName === x.assetName ? x : item));
                 } else {
-                    setAssetData([...assetData, x]);
+                    console.log('not exists');
+                    setAssetData(assetData.push(x));
                 }
             }
         },
@@ -34,39 +35,32 @@ const AssetTable = () => {
     };
 
     useEffect(() => {
-        console.log('useEffect called just now');
-        console.log('in useEffect Asset data is:' + JSON.stringify(assetData));
         if (assetData) {
-            console.log('useEffect tryin to render table' + JSON.stringify(assetData));
             renderAssetTable(assetData);
         } else {
             console.log('cant display asset data in useEffect');
             return <p> Cannot display asset data</p>
         }
     }, [assetData]);
-    console.log('just after subscribe');
 
     if (!assetData || assetData.length <= 0) {
         return <p>Loading...</p>
     } else {
-        console.log('In main render assetData is: ', JSON.stringify(assetData));
         return (
-            <div>
-                <table className="table table-dark">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Asset Name</th>
-                            <th>Price</th>
-                            <th>Last Updated</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {renderAssetTable()}
-                    </tbody>
-                </table>
-            </div>
+            <table className="table table-dark" style={{ height: '100%' }}>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Asset Name</th>
+                        <th>Price</th>
+                        <th>Last Updated</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {renderAssetTable()}
+                </tbody>
+            </table>
         )
     }
 }
