@@ -8,6 +8,7 @@ import '../styles/AssetTable.css';
 const AssetTable = () => {
     const [assetData, setAssetData] = useState([]);
     const [sortByKey, setSortByKey] = useState('basic');
+    const [filterByKey, setFilterByKey] = useState([]);
 
     mock.subscribe(x => {
         if (assetData && assetData.length >= 0) {
@@ -23,11 +24,14 @@ const AssetTable = () => {
     });
 
     const renderAssetTable = () => {
-        let assetDataSorted = assetData;
+        let assetDataModified = assetData;
         if (assetData && assetData.length > 0 && sortByKey !== 'basic') {
-            assetDataSorted = sortBy(assetData, o => o[sortByKey]);
+            if (filterByKey.length === 2) {
+                assetDataModified = assetDataModified.filter(x => x[filterByKey[0]] === filterByKey[1]);
+            }
+            assetDataModified = sortBy(assetDataModified, o => o[sortByKey]);
         }
-        let AssetEntryAll = assetDataSorted && assetDataSorted.length > 0 && assetDataSorted.map((assetEntry) => {
+        let AssetEntryAll = assetDataModified && assetDataModified.length > 0 && assetDataModified.map((assetEntry) => {
             return <Asset assetDetails={assetEntry} />
         })
         return AssetEntryAll;
@@ -40,7 +44,7 @@ const AssetTable = () => {
         } else {
             return <p> Cannot display asset data</p>
         }
-    }, [assetData, sortByKey]);
+    }, [assetData, sortByKey, filterByKey]);
 
     if (!assetData || assetData.length <= 0) {
         return <p>Loading...</p>
@@ -53,7 +57,7 @@ const AssetTable = () => {
                         <th>Asset Name <span className="sorting" onClick={() => setSortByKey('assetName')}>(Sort)</span></th>
                         <th>Price <span className="sorting" onClick={() => setSortByKey('price')}>(Sort)</span></th>
                         <th>Last Updated</th>
-                        <th>Type <span className="sorting" onClick={() => setSortByKey('type')}>(Sort)</span></th>
+                        <th>Type <span className="sorting" onClick={() => setSortByKey('type')}>(Sort)</span> &nbsp; <span className="filtering" onClick={() => setFilterByKey(['type', 'Currency'])}>(Filter -Curr)</span> &nbsp; <span className="filtering" onClick={() => setFilterByKey([])}>(Clear Filter)</span></th>
                     </tr>
                 </thead>
                 <tbody>

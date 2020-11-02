@@ -1,4 +1,10 @@
 .sorting {
     cursor: pointer;
     text-decoration: underline;
+    color: bisque;
+}
+.filtering {
+    cursor: pointer;
+    text-decoration: underline;
+    color: beige;
 }
