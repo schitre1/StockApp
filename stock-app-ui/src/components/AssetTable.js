@@ -8,26 +8,22 @@ const AssetTable = () => {
     mock.subscribe({
         next(x) {
             if (assetData && assetData.length >= 0) {
-                console.log('AssetData is: ' + JSON.stringify(assetData));
                 let currentAssetIfExists = assetData.findIndex((eachAsset) => {
                     return eachAsset.assetName === x.assetName;
                 });
                 if (currentAssetIfExists >= 0) {
-                    console.log('exists');
                     setAssetData(assetData.map((item, index) => item.assetName === x.assetName ? x : item));
                 } else {
-                    console.log('not exists');
                     setAssetData(assetData.push(x));
                 }
             }
         },
-        error(err) { console.error('something wrong occurred: ' + err); },
-        complete() { console.log('done'); }
+        error(err) { console.error('Error occurred: ' + err); },
+        complete() { console.log('Done'); }
     });
 
 
     const renderAssetTable = () => {
-        console.log('asset data in render' + JSON.stringify(assetData));
         let AssetEntryAll = assetData && assetData.length > 0 && assetData.map((assetEntry) => {
             return <Asset assetDetails={assetEntry} />
         })
@@ -38,7 +34,6 @@ const AssetTable = () => {
         if (assetData) {
             renderAssetTable(assetData);
         } else {
-            console.log('cant display asset data in useEffect');
             return <p> Cannot display asset data</p>
         }
     }, [assetData]);
