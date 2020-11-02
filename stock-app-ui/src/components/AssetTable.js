@@ -47,7 +47,7 @@ const AssetTable = () => {
         return <p>Loading...</p>
     } else {
         return (
-            <table className="table table-dark" style={{ height: '100%' }}>
+            <table className="table table-dark">
                 <thead>
                     <tr>
                         <th>ID</th>
