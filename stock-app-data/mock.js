@@ -22,13 +22,13 @@ const getAllAssets = (n) => {
 
 const assets = getAllAssets(200);
 
-const timeObservable = Rx.Observable.interval(1000);
+const timeObservable = Rx.Observable.interval(1000); //1 sec
 export const mock = Observable.create((ob) => {
 	timeObservable.subscribe(() => {
 	  Rx.Observable.from(assets)
 		.map(val => {
 		  const random = Math.random();
-		  val.price = random >= 0.5 ? val.price + random : val.price - random;
+		  val.price = random >= 0.5 ? val.price + random : val.price - random; //slightly tweak price
 		  val.lastUpdate = Date.now();
 		  return val;
 		})
