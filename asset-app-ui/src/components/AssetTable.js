@@ -4,23 +4,35 @@ import { sortBy } from 'lodash';
 import '../styles/AssetTable.css';
 import Asset from './Asset';
 import { mock } from '../mock';
+let assetMaster = [];
+let currAssetData = [];
+let i = 0;
+let initialData = [];
+mock.subscribe(x => {
+    console.log(x);
+    if (x.id === 399) {
+        i++;
+        console.log('x is: ' + x + ' and i is :' + i);
+        if (i == 0) {
+            initialData.push(x);
+        }
+        currAssetData.push(x);
+        assetMaster.push(currAssetData);
+        currAssetData = [];
+    } else {
+        if (i == 0) {
+            initialData.push(x);
+        }
+        currAssetData.push(x);
+    }
+});
 
 const AssetTable = () => {
-
-    const [assetData, setAssetData] = useState([]);
     const [sortByKey, setSortByKey] = useState('basic');
     const [filterByKey, setFilterByKey] = useState([]);
-    let currAssetData = [];
-    mock.subscribe(x => {
-        if (x.id === 399) {
-            currAssetData.push(x);
-            setAssetData(currAssetData);
-        } else {
-            currAssetData.push(x);
-        }
-    });
+    const [i1, seti] = useState(0);
 
-    const renderAssetTable = () => {
+    const renderAssetTable = (assetData) => {
         let assetDataModified = assetData;
         if (assetData && assetData.length > 0 && sortByKey !== 'basic') {
             if (filterByKey.length === 2) {
@@ -36,29 +48,32 @@ const AssetTable = () => {
     };
 
     useEffect(() => {
-        renderAssetTable(assetData);
-    }, [assetData, sortByKey, filterByKey]);
+        console.log('in use effect')
+        const interval = setInterval(function () {
+            renderAssetTable(assetMaster[i1]);
+            seti(i1 + 1);
+        }, 1000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, [i1, sortByKey, filterByKey]);
 
-    if (!assetData || assetData.length <= 0) {
-        return <p>Loading...</p>
-    }
-    else {
-        return (
-            <table className="table table-dark">
-                <thead>
-                    <tr>
-                        <th>ID <span className="sorting" onClick={() => setSortByKey('id')}>(Sort)</span></th>
-                        <th>Asset Name <span className="sorting" onClick={() => setSortByKey('assetName')}>(Sort)</span></th>
-                        <th>Price <span className="sorting" onClick={() => setSortByKey('price')}>(Sort)</span></th>
-                        <th>Last Updated</th>
-                        <th>Type <span className="sorting" onClick={() => setSortByKey('type')}>(Sort)</span> &nbsp; <span className="filtering" onClick={() => setFilterByKey(['type', 'Currency'])}>(Filter -Currency)</span> &nbsp; <span className="filtering" onClick={() => setFilterByKey([])}>(Clear Filter)</span></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {renderAssetTable()}
-                </tbody>
-            </table>
-        )
-    }
+    return (
+        <table className="table table-dark">
+            <thead>
+                <tr>
+                    <th>ID <span className="sorting" onClick={() => setSortByKey('id')}>(Sort)</span></th>
+                    <th>Asset Name <span className="sorting" onClick={() => setSortByKey('assetName')}>(Sort)</span></th>
+                    <th>Price <span className="sorting" onClick={() => setSortByKey('price')}>(Sort)</span></th>
+                    <th>Last Updated</th>
+                    <th>Type <span className="sorting" onClick={() => setSortByKey('type')}>(Sort)</span> &nbsp; <span className="filtering" onClick={() => setFilterByKey(['type', 'Currency'])}>(Filter -Currency)</span> &nbsp; <span className="filtering" onClick={() => setFilterByKey([])}>(Clear Filter)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {renderAssetTable(initialData)}
+            </tbody>
+        </table>
+    )
+
 }
 export default AssetTable;
