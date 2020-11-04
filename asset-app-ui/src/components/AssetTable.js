@@ -4,24 +4,24 @@ import { sortBy } from 'lodash';
 import '../styles/AssetTable.css';
 import Asset from './Asset';
 import { mock } from '../mock';
-let assetMaster = [];
-let currAssetData = [];
+let assetMaster = [], currAssetData = [], initialData = [];
 let i = 0;
-let initialData = [];
+
+/** Note: Need to optimize assetMaster, in future keep only a set(like a sliding window), 
+ * flush out older values, 
+ * accordingly update index of assetMaster being accessed, else memory used continue to increase.
+ * The values in set for each asset can be used for historical analysis of each asset.
+ */
 mock.subscribe(x => {
-    if (x.id === 399) {
-        if (i == 0) {
-            initialData.push(x);
-        }
+    if (i == 0) {
+        initialData.push(x); //for first render
+    }
+    if (x.id === 399) {  //400 assets are in
         currAssetData.push(x);
         assetMaster.push(currAssetData);
         currAssetData = [];
         i++;
-
     } else {
-        if (i == 0) {
-            initialData.push(x);
-        }
         currAssetData.push(x);
     }
 });
