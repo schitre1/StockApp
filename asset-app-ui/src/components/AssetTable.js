@@ -10,16 +10,13 @@ const AssetTable = () => {
     const [assetData, setAssetData] = useState([]);
     const [sortByKey, setSortByKey] = useState('basic');
     const [filterByKey, setFilterByKey] = useState([]);
-    let i = 0;
     let currAssetData = [];
     mock.subscribe(x => {
         if (x.id === 399) {
-            console.log(JSON.stringify(x));
-            currAssetData[399] = x;
-            console.log('Setting state assetdata provider, i is: ', ++i);
+            currAssetData.push(x);
             setAssetData(currAssetData);
         } else {
-            currAssetData[x.id] = x;
+            currAssetData.push(x);
         }
     });
 
