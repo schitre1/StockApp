@@ -1,6 +1,7 @@
 import React from 'react';
 import AssetTable from './AssetTable';
 
+
 const App = () => {
   return (
     <div className="container-fluid">
