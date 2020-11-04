@@ -9,16 +9,15 @@ let currAssetData = [];
 let i = 0;
 let initialData = [];
 mock.subscribe(x => {
-    console.log(x);
     if (x.id === 399) {
-        i++;
-        console.log('x is: ' + x + ' and i is :' + i);
         if (i == 0) {
             initialData.push(x);
         }
         currAssetData.push(x);
         assetMaster.push(currAssetData);
         currAssetData = [];
+        i++;
+
     } else {
         if (i == 0) {
             initialData.push(x);
@@ -48,7 +47,6 @@ const AssetTable = () => {
     };
 
     useEffect(() => {
-        console.log('in use effect')
         const interval = setInterval(function () {
             renderAssetTable(assetMaster[i1]);
             seti(i1 + 1);
