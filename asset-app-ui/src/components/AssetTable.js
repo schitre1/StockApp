@@ -10,7 +10,8 @@ let i = 0;
 /** Note: Need to optimize assetMaster, in future keep only a set(like a sliding window), 
  * flush out older values, 
  * accordingly update index of assetMaster being accessed, else memory used continue to increase.
- * The values in set for each asset can be used for historical analysis of each asset.
+ * The values in set for each asset can be used for historical analysis of each asset, plot chart or 
+ * for adding color codes to the chart - Green for increase, Red for decrease for eg.
  */
 mock.subscribe(x => {
     if (i == 0) {
